@@ -1,0 +1,37 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: chat
+  name: chat
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: chat
+    spec:
+      containers:
+      - image: cavagrill/phoenix-chat-example
+        imagePullPolicy: IfNotPresent
+        name: chat
+        ports:
+        - containerPort: 4000
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    name: chat
+  name: chat
+spec:
+  ports:
+  - name: phoenix
+    port: 4000
+    targetPort: 4000
+  selector:
+    name: chat
+  type: LoadBalancer
