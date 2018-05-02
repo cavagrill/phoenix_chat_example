@@ -41,4 +41,17 @@ spec:
     targetPort: 4000
   selector:
     name: chat
-  type: LoadBalancer
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chat
+spec:
+  rules:
+  - host: chat.cavagrill.org
+    http:
+      paths:
+      - backend:
+          serviceName: chat
+          servicePort: 4000
