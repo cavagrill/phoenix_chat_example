@@ -30,6 +30,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
   creationTimestamp: null
   labels:
     name: chat
@@ -41,17 +43,4 @@ spec:
     targetPort: 4000
   selector:
     name: chat
-  type: NodePort
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: chat
-spec:
-  rules:
-  - host: chat.cavagrill.org
-    http:
-      paths:
-      - backend:
-          serviceName: chat
-          servicePort: 4000
+  type: LoadBalancer
