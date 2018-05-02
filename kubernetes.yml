@@ -14,10 +14,15 @@ spec:
     spec:
       containers:
       - image: cavagrill/phoenix-chat-example
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: chat
         ports:
         - containerPort: 4000
+        env:
+        - name: HOST
+          value: "chat.cavagrill.org"
+        - name: PORT
+          value: "4000"
       restartPolicy: Always
 ---
 apiVersion: v1
