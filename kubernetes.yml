@@ -19,6 +19,8 @@ spec:
         ports:
         - containerPort: 4000
         env:
+        - name: MIX_ENV
+          value: "prod"
         - name: HOST
           value: "chat.cavagrill.org"
         - name: PORT
