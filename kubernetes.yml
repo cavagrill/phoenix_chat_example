@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: Always
         name: chat
         ports:
-        - containerPort: 80
+        - containerPort: 4000
         env:
         - name: MIX_ENV
           value: "prod"
@@ -30,8 +30,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
   creationTimestamp: null
   labels:
     name: chat
@@ -39,8 +37,21 @@ metadata:
 spec:
   ports:
   - name: phoenix
-    port: 80
+    port: 4000
     targetPort: 4000
   selector:
     name: chat
-  type: LoadBalancer
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chat
+spec:
+  rules:
+  - host: chat.cavagrill.org
+    http:
+      paths:
+      - backend:
+          serviceName: chat
+          servicePort: 4000
