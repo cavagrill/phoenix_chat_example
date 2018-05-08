@@ -1,4 +1,3 @@
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -26,32 +25,3 @@ spec:
         - name: PORT
           value: "4000"
       restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    name: chat
-  name: chat
-spec:
-  ports:
-  - name: phoenix
-    port: 4000
-    targetPort: 4000
-  selector:
-    name: chat
-  type: NodePort
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: chat
-spec:
-  rules:
-  - host: chat.cavagrill.org
-    http:
-      paths:
-      - backend:
-          serviceName: chat
-          servicePort: 4000

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chat
+spec:
+  rules:
+  - host: chat.cavagrill.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: chat
+          servicePort: 4000
+  tls:
+  - secretName: fakecert
+    hosts:
+    - chat.cavagrill.org
