@@ -12,6 +12,6 @@ spec:
           serviceName: chat
           servicePort: 4000
   tls:
-  - secretName: fakecert
+  - secretName: chat-cavagrill-org-tls
     hosts:
     - chat.cavagrill.org
